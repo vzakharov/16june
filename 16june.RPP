@@ -1,0 +1,578 @@
+<REAPER_PROJECT 0.1 "7.07/macOS-arm64" 1750063543
+  <NOTES 0 2
+  >
+  RIPPLE 0
+  GROUPOVERRIDE 0 0 0
+  AUTOXFADE 129
+  ENVATTACH 3
+  POOLEDENVATTACH 0
+  MIXERUIFLAGS 11 48
+  PEAKGAIN 1
+  FEEDBACK 0
+  PANLAW 1
+  PROJOFFS 0 0 0
+  MAXPROJLEN 0 0
+  GRID 3199 8 1 8 1 0 0 0
+  TIMEMODE 1 5 -1 30 0 0 -1
+  VIDEO_CONFIG 0 0 256
+  PANMODE 3
+  CURSOR 0
+  ZOOM 20.68685297694533 0 0
+  VZOOMEX 6 0
+  USE_REC_CFG 0
+  RECMODE 1
+  SMPTESYNC 0 30 100 40 1000 300 0 0 1 0 0
+  LOOP 0
+  LOOPGRAN 0 4
+  RECORD_PATH "Media" ""
+  <RECORD_CFG
+    ZXZhdxgAAQ==
+  >
+  <APPLYFX_CFG
+  >
+  RENDER_FILE ""
+  RENDER_PATTERN 16june
+  RENDER_FMT 0 2 0
+  RENDER_1X 0
+  RENDER_RANGE 1 0 0 18 1000
+  RENDER_RESAMPLE 3 0 1
+  RENDER_ADDTOPROJ 0
+  RENDER_STEMS 0
+  RENDER_DITHER 0
+  TIMELOCKMODE 1
+  TEMPOENVLOCKMODE 1
+  ITEMMIX 1
+  DEFPITCHMODE 589824 0
+  TAKELANE 1
+  SAMPLERATE 44100 0 0
+  <RENDER_CFG
+    ZXZhdxgAAQ==
+  >
+  LOCK 1
+  <METRONOME 6 2
+    VOL 0.25 0.125
+    FREQ 800 1600 1
+    BEATLEN 4
+    SAMPLES "" ""
+    PATTERN 2863311530 2863311529
+    MULT 1
+  >
+  GLOBAL_AUTO -1
+  TEMPO 120 4 4
+  PLAYRATE 1 0 0.25 4
+  SELECTION 27.73249022307661 27.8662451115383
+  SELECTION2 27.73249022307661 27.8662451115383
+  MASTERAUTOMODE 0
+  MASTERTRACKHEIGHT 0 0
+  MASTERPEAKCOL 16576
+  MASTERMUTESOLO 0
+  MASTERTRACKVIEW 0 0.6667 0.5 0.5 0 0 0 0 0 0 0 0 0 0
+  MASTERHWOUT 0 0 1 0 0 0 0 -1
+  MASTER_NCH 2 2
+  MASTER_VOLUME 1 0 -1 -1 1
+  MASTER_PANMODE 3
+  MASTER_FX 1
+  MASTER_SEL 0
+  <MASTERPLAYSPEEDENV
+    EGUID {1BA32B3C-FFAE-E044-AA09-ECEDBE07BEFC}
+    ACT 0 -1
+    VIS 0 1 1
+    LANEHEIGHT 0 0
+    ARM 0
+    DEFSHAPE 0 -1 -1
+  >
+  <TEMPOENVEX
+    EGUID {303AC947-96DC-1742-89C8-E76F2ED7AFE5}
+    ACT 0 -1
+    VIS 1 0 1
+    LANEHEIGHT 0 0
+    ARM 0
+    DEFSHAPE 1 -1 -1
+  >
+  <PROJBAY
+  >
+  <TRACK {69860226-E129-8842-A09B-2D899BCBF34D}
+    NAME "download (7)"
+    PEAKCOL 16576
+    BEAT -1
+    AUTOMODE 0
+    VOLPAN 0.0000000001 0 -1 -1 1
+    MUTESOLO 0 0 0
+    IPHASE 0
+    PLAYOFFS 0 1
+    ISBUS 0 0
+    BUSCOMP 0 0 0 0 0
+    SHOWINMIX 1 0.6667 0.5 1 0.5 0 0 0
+    FIXEDLANES 9 0 0
+    SEL 0
+    REC 0 0 1 0 0 0 0 0
+    VU 2
+    TRACKHEIGHT 0 0 0 0 0 0 0
+    INQ 0 0 0 0.5 100 0 0 100
+    NCHAN 2
+    FX 1
+    TRACKID {69860226-E129-8842-A09B-2D899BCBF34D}
+    PERF 0
+    MIDIOUT -1
+    MAINSEND 1 0
+    <FXCHAIN
+      WNDRECT 222 55 969 484
+      SHOW 0
+      LASTSEL 1
+      DOCKED 0
+      BYPASS 0 0 0
+      <JS utility/volume ""
+        -150 0 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+      >
+      FLOATPOS 0 0 0 0
+      FXID {2852F97A-F203-C147-ACCA-AC64FC773359}
+      WAK 0 0
+      BYPASS 0 0 0
+      <VIDEO_EFFECT "Video processor" ""
+        <CODE
+          |// Track opacity/zoom/pan
+          |//@param1:opacity 'opacity' 1
+          |//@param2:zoom 'zoom' 0 -10 10 0
+          |//@param3:xoffs 'X offset' 0 -1 1 0
+          |//@param4:yoffs 'Y offset' 0 -1 1 0
+          |//@param5:rotate 'rotate' 0 -360 360 0 1
+          |//@param7:filter 'filter' 0 0 1 0.5 1
+          |//@param8:clear 'clear bg' 1 0 1 0.5 1
+          |//@param9:force_w 'force width' 0 0 2600 1024 2
+          |//@param10:force_h 'force height' 0 0 2600 1024 2
+          |//@param11:paspect 'preserve aspect' 1 0 1 0.5 1
+          |
+          |(bg_img=input_ismaster() ? -2 : input_track(0)) ? (
+          |  force_w &= -2; force_h &= -2;
+          |  force_w && !force_h ? force_h = (force_w * project_h / project_w)&-2;
+          |  force_h && !force_w ? force_w = (force_h * project_w / project_h)&-2;
+          |  force_w>0 && force_h>0 ? ( project_w=force_w; project_h=force_h );
+          |
+          |  w = opacity < 0.01 ? 0 : opacity > 0.99 ? 1 : opacity;
+          |  gfx_a2=0;
+          |  gfx_blit((w < 1 || clear < 0.5) ? bg_img : -2,1);
+          |
+          |  w > 0 ? (
+          |    gfx_mode = filter>0.5 ? 256 : 0;
+          |    gfx_a=w;
+          |    z = 10^(zoom/10);
+          |    dw = (project_w*z)&-2;
+          |    dh = (project_h*z)&-2;
+          |    x = (project_w - dw + xoffs*(project_w+dw))*.5;
+          |    y = (project_h - dh + yoffs*(project_h+dh))*.5;
+          |    rotate == 0 ? gfx_blit(0,paspect, x|0,y|0,dw,dh) : (
+          |      input_info(0,srcw,srch);
+          |      sc=2.0; sc2=sc*.5 - 0.5;
+          |      gfx_rotoblit(0,rotate*$pi/180,(x-dw*sc2)|0,(y-dh*sc2)|0,dw*sc,dh*sc, -srcw*sc2, -srch*sc2, srcw*sc, srch*sc);
+          |    );
+          |  );
+          |);
+        >
+        CODEPARM 1 0 0 0 0 0 0 1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+      >
+      PRESETNAME "Basic helpers: Track opacity/zoom/pan"
+      FLOATPOS 0 0 0 0
+      FXID {9213573C-8FC7-EC49-A70E-313050CF6470}
+      <PARMENV 0 0 1 0.5 "opacity / Track opacity/zoom/pan - video processor"
+        EGUID {981F06DF-B9D0-1541-B1C9-8259A57668D3}
+        ACT 1 -1
+        VIS 1 1 1
+        LANEHEIGHT 0 0
+        ARM 1
+        DEFSHAPE 0 -1 -1
+        PT 7.49730096 1 4
+        PT 8 0 0
+        PT 15 0 3
+        PT 15.50739633 1 0
+        PT 22.5 1 4
+        PT 23 0.01602096 0
+        PT 28 0 5 1 0 0 -0.500002
+        PT 28.5 0.99700599 0
+        PT 34 1 4
+        PT 34.5 0.01602096 0
+      >
+      WAK 0 0
+    >
+    <ITEM
+      POSITION 0
+      SNAPOFFS 0
+      LENGTH 7.8020160054321
+      LOOP 1
+      ALLTAKES 0
+      FADEIN 1 0 0 1 0 0 0
+      FADEOUT 1 0 0 1 0 0 0
+      MUTE 0 0
+      SEL 0
+      IGUID {8742F457-4F1D-4844-AC44-E1911C41D494}
+      IID 1
+      NAME "download (7).mp4"
+      VOLPAN 1 0 1 -1
+      SOFFS 0
+      PLAYRATE 1 1 0 -1 0 0.0025
+      CHANMODE 0
+      GUID {7022BE23-F0DE-914A-8707-7AD81D59F319}
+      <SOURCE VIDEO
+        FILE "Media/download (7).mp4"
+      >
+    >
+    <ITEM
+      POSITION 15
+      SNAPOFFS 0
+      LENGTH 8
+      LOOP 1
+      ALLTAKES 0
+      FADEIN 1 0 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
+      SEL 0
+      IGUID {7E27FC73-4846-B14D-84DF-1F549650A045}
+      IID 16
+      NAME "download (10).mp4"
+      VOLPAN 1 0 1 -1
+      SOFFS 0
+      PLAYRATE 1 1 0 -1 0 0.0025
+      CHANMODE 0
+      GUID {98F33A28-BFFF-5549-A303-5AFB9DA94561}
+      <SOURCE VIDEO
+        FILE "Media/download (10).mp4"
+      >
+    >
+    <ITEM
+      POSITION 28
+      SNAPOFFS 0
+      LENGTH 8
+      LOOP 1
+      ALLTAKES 0
+      FADEIN 1 0 0 1 0 0 0
+      FADEOUT 1 0 0 1 0 0 0
+      MUTE 0 0
+      SEL 0
+      IGUID {4685EE31-3A00-2F4E-A4C6-ADC967945C84}
+      IID 19
+      NAME "download (12).mp4"
+      VOLPAN 1 0 1 -1
+      SOFFS 0
+      PLAYRATE 1 1 0 -1 0 0.0025
+      CHANMODE 0
+      GUID {ED8618A4-0D3F-3349-84B8-0DC5FF47489A}
+      <SOURCE VIDEO
+        FILE "Media/download (12).mp4"
+      >
+    >
+  >
+  <TRACK {1BE9AB16-D88D-1A45-B6C6-EED0223DC098}
+    NAME "download (7)"
+    PEAKCOL 16576
+    BEAT -1
+    AUTOMODE 0
+    VOLPAN 0.0000000001 0 -1 -1 1
+    MUTESOLO 0 0 0
+    IPHASE 0
+    PLAYOFFS 0 1
+    ISBUS 0 0
+    BUSCOMP 0 0 0 0 0
+    SHOWINMIX 1 0.6667 0.5 1 0.5 0 0 0
+    FIXEDLANES 9 0 0
+    SEL 1
+    REC 0 0 1 0 0 0 0 0
+    VU 2
+    TRACKHEIGHT 0 0 0 0 0 0 0
+    INQ 0 0 0 0.5 100 0 0 100
+    NCHAN 2
+    FX 1
+    TRACKID {1BE9AB16-D88D-1A45-B6C6-EED0223DC098}
+    PERF 0
+    MIDIOUT -1
+    MAINSEND 1 0
+    <FXCHAIN
+      WNDRECT 222 55 969 484
+      SHOW 0
+      LASTSEL 1
+      DOCKED 0
+      BYPASS 0 0 0
+      <JS utility/volume ""
+        -150 0 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+      >
+      FLOATPOS 0 0 0 0
+      FXID {BF813516-6365-E045-B16E-D9E9899F1ECB}
+      WAK 0 0
+      BYPASS 0 0 0
+      <VIDEO_EFFECT "Video processor" ""
+        <CODE
+          |// Track opacity/zoom/pan
+          |//@param1:opacity 'opacity' 1
+          |//@param2:zoom 'zoom' 0 -10 10 0
+          |//@param3:xoffs 'X offset' 0 -1 1 0
+          |//@param4:yoffs 'Y offset' 0 -1 1 0
+          |//@param5:rotate 'rotate' 0 -360 360 0 1
+          |//@param7:filter 'filter' 0 0 1 0.5 1
+          |//@param8:clear 'clear bg' 1 0 1 0.5 1
+          |//@param9:force_w 'force width' 0 0 2600 1024 2
+          |//@param10:force_h 'force height' 0 0 2600 1024 2
+          |//@param11:paspect 'preserve aspect' 1 0 1 0.5 1
+          |
+          |(bg_img=input_ismaster() ? -2 : input_track(0)) ? (
+          |  force_w &= -2; force_h &= -2;
+          |  force_w && !force_h ? force_h = (force_w * project_h / project_w)&-2;
+          |  force_h && !force_w ? force_w = (force_h * project_w / project_h)&-2;
+          |  force_w>0 && force_h>0 ? ( project_w=force_w; project_h=force_h );
+          |
+          |  w = opacity < 0.01 ? 0 : opacity > 0.99 ? 1 : opacity;
+          |  gfx_a2=0;
+          |  gfx_blit((w < 1 || clear < 0.5) ? bg_img : -2,1);
+          |
+          |  w > 0 ? (
+          |    gfx_mode = filter>0.5 ? 256 : 0;
+          |    gfx_a=w;
+          |    z = 10^(zoom/10);
+          |    dw = (project_w*z)&-2;
+          |    dh = (project_h*z)&-2;
+          |    x = (project_w - dw + xoffs*(project_w+dw))*.5;
+          |    y = (project_h - dh + yoffs*(project_h+dh))*.5;
+          |    rotate == 0 ? gfx_blit(0,paspect, x|0,y|0,dw,dh) : (
+          |      input_info(0,srcw,srch);
+          |      sc=2.0; sc2=sc*.5 - 0.5;
+          |      gfx_rotoblit(0,rotate*$pi/180,(x-dw*sc2)|0,(y-dh*sc2)|0,dw*sc,dh*sc, -srcw*sc2, -srch*sc2, srcw*sc, srch*sc);
+          |    );
+          |  );
+          |);
+        >
+        CODEPARM 0 0 0 0 0 0 0 1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+      >
+      PRESETNAME "Basic helpers: Track opacity/zoom/pan"
+      FLOATPOS 0 0 0 0
+      FXID {1539C081-C3D0-0742-B0AE-09029D607E40}
+      <PARMENV 0 0 1 0.5 "opacity / Track opacity/zoom/pan - video processor"
+        EGUID {981F06DF-B9D0-1541-B1C9-8259A57668D3}
+        ACT 1 -1
+        VIS 1 1 1
+        LANEHEIGHT 0 0
+        ARM 1
+        DEFSHAPE 0 -1 -1
+        PT 0 0 0
+        PT 7.5 0 3
+        PT 8.00739633 1 0
+        PT 15 1 4
+        PT 15.5 0.01602096 0
+        PT 15.50269904 0 0
+        PT 22.5 0.00299401 5 2 0 0 -0.50000191
+        PT 23 1 0
+        PT 28 1 4
+        PT 28.5 0.01602096 0
+        PT 34 0 0 0 1
+        PT 34 0 5 1 0 0 -0.500002
+        PT 35 0.99700599 0
+      >
+      WAK 0 0
+    >
+    <ITEM
+      POSITION 7.5
+      SNAPOFFS 0
+      LENGTH 8
+      LOOP 1
+      ALLTAKES 0
+      FADEIN 1 0 0 1 0 0 0
+      FADEOUT 1 0 0 1 0 0 0
+      MUTE 0 0
+      SEL 0
+      IGUID {6AB2FB35-9B06-6A42-B49F-170C8AC1C1E1}
+      IID 33
+      NAME "download (13).mp4"
+      VOLPAN 1 0 1 -1
+      SOFFS 0
+      PLAYRATE 1 1 0 -1 0 0.0025
+      CHANMODE 0
+      GUID {4F062850-50E9-534E-B92B-6F102240071E}
+      <SOURCE VIDEO
+        FILE "Media/download (13).mp4"
+      >
+    >
+    <ITEM
+      POSITION 22.5
+      SNAPOFFS 0
+      LENGTH 7.5
+      LOOP 1
+      ALLTAKES 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0 0 1 0 0 0
+      MUTE 0 0
+      SEL 0
+      IGUID {3F2BF3A6-D8F6-5B40-AFAF-7ACA995E22BC}
+      IID 18
+      NAME "download (11).mp4"
+      VOLPAN 1 0 1 -1
+      SOFFS 0.5
+      PLAYRATE 1 1 0 -1 0 0.0025
+      CHANMODE 0
+      GUID {E411FF79-D2D4-1042-80F2-300ADF85F00A}
+      <SOURCE VIDEO
+        FILE "Media/download (11).mp4"
+      >
+    >
+    <ITEM
+      POSITION 34
+      SNAPOFFS 0
+      LENGTH 8
+      LOOP 1
+      ALLTAKES 0
+      FADEIN 1 0 0 1 0 0 0
+      FADEOUT 1 0 0 1 0 0 0
+      MUTE 0 0
+      SEL 1
+      IGUID {40B677A1-30A2-7E45-9B0E-65D37467B129}
+      IID 2
+      NAME "download (9).mp4"
+      VOLPAN 1 0 1 -1
+      SOFFS 0
+      PLAYRATE 1 1 0 -1 0 0.0025
+      CHANMODE 0
+      GUID {8700CF8D-4B7A-2748-896A-43E771552CB1}
+      <SOURCE VIDEO
+        FILE "Media/download (9).mp4"
+      >
+    >
+  >
+  <TRACK {D7C98705-B894-1E45-B002-0E55EC22D9E1}
+    NAME "download (7) (1)"
+    PEAKCOL 16576
+    BEAT -1
+    AUTOMODE 0
+    VOLPAN 1 0 -1 -1 1
+    MUTESOLO 0 0 0
+    IPHASE 0
+    PLAYOFFS 0 1
+    ISBUS 0 0
+    BUSCOMP 0 0 0 0 0
+    SHOWINMIX 1 0.6667 0.5 1 0.5 0 0 0
+    FIXEDLANES 9 0 0
+    SEL 0
+    REC 0 0 1 0 0 0 0 0
+    VU 2
+    TRACKHEIGHT 162 0 0 0 0 0 0
+    INQ 0 0 0 0.5 100 0 0 100
+    NCHAN 2
+    FX 1
+    TRACKID {D7C98705-B894-1E45-B002-0E55EC22D9E1}
+    PERF 0
+    MIDIOUT -1
+    MAINSEND 1 0
+    <ITEM
+      POSITION 0
+      SNAPOFFS 0
+      LENGTH 27.48305096975511
+      LOOP 1
+      ALLTAKES 0
+      FADEIN 2 0.52122169632122 0 2 0 1 1
+      FADEOUT 1.1 0.62371462218008 2.27587691041075 1 1 0 0
+      MUTE 0 0
+      SEL 0
+      IGUID {98798685-1C77-2144-8CD2-3A86104F46F7}
+      IID 3
+      NAME "download (7) (1).mp3"
+      VOLPAN 1 0 1 -1
+      SOFFS 0
+      PLAYRATE 1 1 0 -1 0 0.0025
+      CHANMODE 0
+      GUID {B5547F57-CE84-0844-8084-F898F879109F}
+      <SOURCE MP3
+        FILE "Media/download (7) (1).mp3" 1
+      >
+    >
+    <ITEM
+      POSITION 25.20717405934436
+      SNAPOFFS 0
+      LENGTH 19.2646716507689
+      LOOP 1
+      ALLTAKES 0
+      FADEIN 1.1 0.56842398520616 2.27587691041075 1 1 0 0
+      FADEOUT 1 0 0 1 0 0 0
+      MUTE 0 0
+      SEL 0
+      IGUID {F2167278-39F6-6040-B94D-4C5708A80545}
+      IID 3
+      NAME "download (7) (3).mp3"
+      VOLPAN 1 0 1 -1
+      SOFFS 235.56975617060263
+      PLAYRATE 1 1 0 -1 0 0.0025
+      CHANMODE 0
+      GUID {965E4775-1D39-DB4A-8135-4A3EC4D44A25}
+      <SOURCE MP3
+        FILE "Media/download (7) (3).mp3" 1
+      >
+    >
+  >
+  <TRACK {4754D9EF-A281-264E-90F3-9FEF8ABD8978}
+    NAME "download (8)"
+    PEAKCOL 16576
+    BEAT -1
+    AUTOMODE 0
+    VOLPAN 1 0 -1 -1 1
+    MUTESOLO 0 0 0
+    IPHASE 0
+    PLAYOFFS 0 1
+    ISBUS 0 0
+    BUSCOMP 0 0 0 0 0
+    SHOWINMIX 1 0.6667 0.5 1 0.5 0 0 0
+    FIXEDLANES 9 0 0
+    SEL 0
+    REC 0 0 1 0 0 0 0 0
+    VU 2
+    TRACKHEIGHT 0 0 0 0 0 0 0
+    INQ 0 0 0 0.5 100 0 0 100
+    NCHAN 2
+    FX 1
+    TRACKID {4754D9EF-A281-264E-90F3-9FEF8ABD8978}
+    PERF 0
+    MIDIOUT -1
+    MAINSEND 1 0
+  >
+  <TRACK {B7E65508-92DA-274D-9707-CBA335DD42B2}
+    NAME "download (7) (2)"
+    PEAKCOL 16576
+    BEAT -1
+    AUTOMODE 0
+    VOLPAN 1 0 -1 -1 1
+    MUTESOLO 1 0 0
+    IPHASE 0
+    PLAYOFFS 0 1
+    ISBUS 0 0
+    BUSCOMP 0 0 0 0 0
+    SHOWINMIX 1 0.6667 0.5 1 0.5 0 0 0
+    FIXEDLANES 9 0 0
+    SEL 0
+    REC 0 0 1 0 0 0 0 0
+    VU 2
+    TRACKHEIGHT 0 0 0 0 0 0 0
+    INQ 0 0 0 0.5 100 0 0 100
+    NCHAN 2
+    FX 1
+    TRACKID {B7E65508-92DA-274D-9707-CBA335DD42B2}
+    PERF 0
+    MIDIOUT -1
+    MAINSEND 1 0
+    <ITEM
+      POSITION 2
+      SNAPOFFS 0
+      LENGTH 1.5
+      LOOP 1
+      ALLTAKES 0
+      FADEIN 1 0 0 1 0 0 0
+      FADEOUT 1 0 0 1 0 0 0
+      MUTE 0 0
+      SEL 0
+      IGUID {ED683EA6-269C-3244-841D-BA96141C7917}
+      IID 8
+      NAME "download (8).mp4"
+      VOLPAN 1 0 1 -1
+      SOFFS 6.5
+      PLAYRATE 1 1 0 -1 0 0.0025
+      CHANMODE 0
+      GUID {A1CD0C1B-C48C-864E-8695-54F0F62177E1}
+      <SOURCE VIDEO
+        FILE "Media/download (8).mp4"
+      >
+    >
+  >
+  <EXTENSIONS
+  >
+>
